@@ -13,5 +13,6 @@
 * 4 npm install --save-dev phantomjs-prebuilt@2.1.14
 
 ## 必须保证test/unit/specs下有单元测试的文件
+![test demo](https://github.com/diDiAo1/blog/blob/master/images/vue/test-demo.png)
 
 ## npm run unit
