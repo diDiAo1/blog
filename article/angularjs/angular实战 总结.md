@@ -1,11 +1,11 @@
-#一、angular介绍
+# 一、angular介绍
 1、angular是Google公司提供的一套基于MVC结构的js开发工具，其核心功能就是对现有html编码以指令方式进行扩展，并使其通过使用元素声明的方式来构建动态内容。
 2、为实现上述目的，angular利用 了两项技术点：双向绑定和依赖注入
 
-#二、适用范围
+# 二、适用范围
 angular是构建一个MVC类结构的js库，建议在构建CRUD应用时使用它。对于图形编辑、游戏开发不建议使用。
 
-#三、控制器
+# 三、控制器
 1、不要在控制器中写业务逻辑，业务逻辑交给模型层的服务。
 // 比如这是把业务逻辑放在控制器
 ```
@@ -64,7 +64,7 @@ function elecMapService(API,pageBase,q) {
 ②控制器是不可重用的——它与视图有耦合
 ③Controllers are not meant to be injected
 
-#四 模板
+# 四 模板
 1、避免在模板中使用复杂的表达式。
 2、当需要动态设置 的 `src` 时使用` ng-src `而非 `src `中嵌套 {{}} 的模板。`href`同理。
 3、通过 `ng-style` 指令配合对象式参数和` scope `变量来动态设置元素样式，而不是将 `scope `变量作为字符串通过 {{ }} 用于 `style` 属性。
@@ -106,7 +106,7 @@ $scope.li_click = function (i) {
 ```
 css中需要加入`.odd .even .focus`
 5、元素显示隐藏`ng-show ng-hide ng-switch(ng-switch-when ng-switch-default)`
-#五 过滤器
+# 五 过滤器
 1、orderby
 ```
 <li  ng-repeat="stu in data|orderBy:'-score'|limitTo:3">
@@ -165,7 +165,7 @@ $score.desc = 0
 	<span>{{stu.score}}</span>
 </li>
 ```
-#六 作用域
+# 六 作用域
 作用域是控制器与视图的桥梁，也是指令与视图的桥梁
 1、提供`$watch`方面监听数据模型变化(`ng-model`双向绑定)
 ```
@@ -187,7 +187,7 @@ $on(eventname,function(event,data)){
 }
 ```
 在作用域监听传播来的事件并获取相应的数据
-#七  依赖注入
+# 七  依赖注入
 1、当在代码中声明了依赖关系后，Angular通过`injector`注入器将所依赖的对象进行"注入"操作
 2、`config`函数为定义的模板对象注入依赖的各种服务，除了用于注册控制器的`controllerProvider`服务外，还有`provide`服务，它包含了几个重要方法`provider,factory,service,value`
 3、依赖注入标记
@@ -214,7 +214,7 @@ module.controller('MyCtrl',[$scope,$window,function($scope,$window){
 在 三、控制器 提到的内容
 如果需要例子展现如何在控制器中使用服务，请参考 'Avoid writing business logic inside controllers'。
 
-#九 使用promise而非回调
+# 九 使用promise而非回调
 1、处理异步编程的模式，可以有效解决回调的繁琐，以一种同步的方式去处理业务逻辑。
 2、想要在angular中创建`promise`对象，必须在模板中注入`$q`服务，并先调用`defer`方法创建一个延期对象。
 ```
@@ -247,7 +247,7 @@ module.factory("async",function($q,$http){
    })
 })
 ```
-#十 注意事项
+# 十 注意事项
 1、调用`element`方法控制`dom`元素
 ```
 angular.element(document.getElementById("control")).append(newhtml)
