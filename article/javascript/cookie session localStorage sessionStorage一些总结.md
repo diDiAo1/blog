@@ -9,6 +9,39 @@
 ### 什么是session
 当程序需要为某个客户端的请求创建一个session时，服务器首先检查这个客户端的请求里是否已包含了一个session标识（称为session id），如果已包含则说明以前已经为此客户端创建过session，服务器就按照session id把这个session检索出来使用（检索不到，会新建一个），如果客户端请求不包含session id，则为此客户端创建一个session并且生成一个与此session相关联的session id，session id的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这个session id将被在本次响应中返回给客户端保存。
 Jsessionid只是tomcat的对sessionid的叫法，其实就是sessionid；在其它的容器也许就不叫jsessionid了。
+### 什么是jwt
+Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准
+### session认证和token认证
+因为根据http协议，我们并不能知道是哪个用户发出的请求，所以为了让我们的应用能识别是哪个用户发出的请求
+#### session认证
+ 1. 用户使用用户名密码来请求服务器
+ 2. 服务器进行验证用户的信息,检查客户端请求是否有session标识
+ 3. 服务器通过验证在服务器内存中创建一个session并生成session id，存储用户登录的信息
+ 4. 客户端把session id存储在cookie里，并在每次请求时附送上这个cookie
+ 5. 服务端验证session id值，并返回数据
+ 
+#### token认证
+
+ 1. 用户使用用户名密码来请求服务器
+ 2. 服务器进行验证用户的信息 
+ 3. 服务器通过验证发送给用户一个token
+ 4. 客户端存储token，可以放在cookie也可以放在localStorage,sessionStorage，并在每次请求时附送上这个token值 
+ 5. 服务端验证token值，并返回数据
+## 基于session认证所显露的问题
+
+ 1. Session: 每个用户经过我们的应用认证之后，我们的应用都要在服务端做一次记录，以方便用户下次请求的鉴别，通常而言session都是保存在内存中，而随着认证用户的增多，服务端的开销会明显增大。
+ 2. 扩展性: 用户认证之后，服务端做认证记录，如果认证的记录被保存在内存中的话，这意味着用户下次请求还必须要请求在这台服务器上,这样才能拿到授权的资源，这样在分布式的应用上，相应的限制了负载均衡器的能力。这也意味着限制了应用的扩展能力。
+ 3. CSRF: 因为是基于cookie来进行用户识别的, cookie如果被截获，用户就会很容易受到跨站请求伪造的攻击。
+### JWT的构成
+第一部分我们称它为头部（header),第二部分我们称其为载荷（payload, 类似于飞机上承载的物品)，第三部分是签证（signature).
+  
+### 总结
+
+ 1. session认证：既要在服务器端存储用户信息，又要在客户端cookie中存储sessionid。
+ token认证：只在客户端存储
+ 
+ [什么是 JWT -- JSON WEB TOKEN][1]
+
 ### cookie和session不同
 
  1. 存取方式的不同
