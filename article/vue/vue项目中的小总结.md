@@ -19,6 +19,26 @@ mutations.type.js文件的作用如图：
 vuex就是一个“提升变量”的一个工具，它是将state当做全局变量存储。刷新相当于App重载了，自然随着页面的刷新也会重新初始化state。
 若你不想刷新后数据消失，可以放在cookie,localStorage等中，这里面的数据不手动清除缓存一般都是在的
 
+## 自定义路径别名
 
+ 1. 在 vue-cli 生成的模板中在导入组件时使用了这样的语法：
+ `import Index from '@/components/Index'`
+ 2. 我们也可以在基础配置文件中添加自己的路径别名，比如下面这个就把 ~ 设置为路径 src/components 的别名：
+ ```
+ // build/webpack.base.js
+{
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+      '~': resolve('src/components')
+    }
+  }
+}
+```
+ 3. 然后我们导入组件的时候就可以这样写：
+ `import YourComponent from '~/YourComponent'`
+ 
 
   [1]: https://github.com/diDiAo1/blog/blob/master/images/vue/mutations_type.png
